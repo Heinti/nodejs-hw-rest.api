@@ -5,44 +5,45 @@ const { handleMongooseError } = require("../heplers");
 const Joi = require("joi");
 
 const userSchema = new Schema({
-    password: {
-      type: String,
-      required: [true, 'Set password for user'],
-    },
-    email: {
-      type: String,
-      required: [true, 'Email is required'],
-      unique: true,
-    },
-    subscription: {
-      type: String,
-      enum: ["starter", "pro", "business"],
-      default: "starter"
-    },
-    token: String
-  })
+  password: {
+    type: String,
+    required: [true, "Set password for user"],
+  },
+  email: {
+    type: String,
+    required: [true, "Email is required"],
+    unique: true,
+  },
+  subscription: {
+    type: String,
+    enum: ["starter", "pro", "business"],
+    default: "starter",
+  },
+  token: { 
+    type: String, 
+    default: "" 
+},
+});
 
-  userSchema.post("save", handleMongooseError);
+userSchema.post("save", handleMongooseError);
 
-  const registerSchema = Joi.object({
-    password: Joi.string().required(),
-    email: Joi.string().required(),
-    
-  })
-  const loginSchema = Joi.object({
-    password: Joi.string().required(),
-    email: Joi.string().required(),
-    
-  })
+const registerSchema = Joi.object({
+  password: Joi.string().required(),
+  email: Joi.string().required(),
+});
+const loginSchema = Joi.object({
+  password: Joi.string().required(),
+  email: Joi.string().required(),
+});
 
-  const schemas = {
-    registerSchema,
-    loginSchema,
-  }
+const schemas = {
+  registerSchema,
+  loginSchema,
+};
 
-  const User = model('user', userSchema)
+const User = model("user", userSchema);
 
-  module.exports ={
-    User,
-    schemas,
-  }
+module.exports = {
+  User,
+  schemas,
+};
