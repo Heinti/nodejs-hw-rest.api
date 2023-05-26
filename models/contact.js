@@ -1,4 +1,4 @@
-const { boolean } = require("joi");
+
 const { Schema, model } = require("mongoose");
 const { handleMongooseError } = require("../heplers");
 const Joi = require("joi");
@@ -18,6 +18,10 @@ const contactSchema = new Schema({
     type: Boolean,
     default: false,
   },
+  owner: {
+    type: Schema.Types.ObjectId,
+    ref: 'user',
+  }
 });
 
 //мангус видає помилку 500, ми ж робимо обробник для конкретизації
