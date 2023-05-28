@@ -3,6 +3,8 @@ const mongoose = require("mongoose");
 
 const {DB_HOST} = process.env
 
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+
 mongoose
   .connect(DB_HOST)
   .then(app.listen(3000), 
